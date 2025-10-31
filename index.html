@@ -98,9 +98,8 @@
     <div id="result"></div>
 
     <script>
-        let productsData = []; // Store all products globally
+        let productsData = []; 
 
-        // Load products and populate dropdown when page loads
         $(document).ready(function() {
             $.get("products.json", function(data) {
                 productsData = data;
@@ -114,11 +113,9 @@
             });
         });
 
-        // Extract all unique categories from products and populate dropdown
         function populateCategories(products) {
             let allCategories = [];
             
-            // Collect all categories from all products
             products.forEach(function(product) {
                 product.categories.forEach(function(category) {
                     if (!allCategories.includes(category)) {
@@ -126,11 +123,9 @@
                     }
                 });
             });
-
-            // Sort categories alphabetically
+            
             allCategories.sort();
 
-            // Add categories to dropdown
             let select = document.getElementById('categorySelect');
             allCategories.forEach(function(category) {
                 let option = document.createElement('option');
@@ -139,8 +134,6 @@
                 select.appendChild(option);
             });
         }
-
-        // Filter and display products based on selected category
         function filterProducts() {
             let selectedCategory = document.getElementById('categorySelect').value;
             
@@ -150,12 +143,11 @@
                 return;
             }
 
-            // Filter products that have the selected category
+        
             let filteredProducts = productsData.filter(function(product) {
                 return product.categories.includes(selectedCategory);
             });
 
-            // Display filtered products
             if (filteredProducts.length === 0) {
                 document.getElementById('result').innerHTML = 
                     '<p class="no-results">No products found in this category.</p>';
